@@ -5,6 +5,29 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            $(function(){
+                $('.form-button').on('click', function(){
+                    let data = {
+                        'name': $('[name="name"]').val(),
+                        'phone': $('[name="phone"]').val(),
+                        'email': $('[name="email"]').val()
+                    };
+                    $.post('api.php', data, function(response){
+                        if (response == 1) {
+                            $('[name="name"]').val('');
+                            $('[name="phone"]').val('');
+                            $('[name="email"]').val('');
+                            alert('Ваша заявка принята!\nМы с вами свяжемся');
+                        } else {
+                            alert('Что-то пошло не так... \nПовторите попытку позже')
+                        };
+                    })
+                    return false;
+                });
+            });
+        </script>
         <style>
             * {
                 margin: 0;
@@ -126,9 +149,9 @@
         <section class="form-container">
             <h2>Оставьте заявку и&nbsp;забронируйте тур по&nbsp;минимальной цене</h2>
             <form class="form">
-                <input class="form-field" type="text" placeholder="Имя">
-                <input class="form-field" type="tel" placeholder="Телефон">
-                <input class="form-field" type="email" placeholder="Email">
+                <input class="form-field" name="name" type="text" placeholder="Имя">
+                <input class="form-field" name="phone" type="tel" placeholder="Телефон">
+                <input class="form-field" name="email" type="email" placeholder="Email">
                 <button class="form-button">Записаться</button>
             </form>
         </section>
